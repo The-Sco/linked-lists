@@ -65,7 +65,7 @@ test("findIndex(value) returns the index of the node containing the given value.
 
 test("toString() represents the LinkedList objects as strings", () => {
   const list = new LinkedList(11);
-  expect(list.toString("( 11 ) -> null"));
+  expect(list.toString()).toBe("( 11 ) -> null");
   const list2 = new LinkedList(522, 42, 33);
   expect(list2.toString()).toBe("( 522 ) -> ( 42 ) -> ( 33 ) -> null");
 
@@ -76,6 +76,10 @@ test("insertAt(index, ...values) should insert new nodes with the given values a
   const list = new LinkedList(224, 512, 42);
   list.insertAt(2, 15, 16);
   expect(list.head.next.next.data).toBe(15);
+  expect(list.head.next.next.next.data).toBe(16);
+  expect(list.head.data).toBe(224);
+  expect(list.tail.data).toBe(42);
+  expect(list.size()).toBe(5);
 });
 
 test("removeAt(index) that removes the node at the given index", () => {
@@ -86,7 +90,9 @@ test("removeAt(index) that removes the node at the given index", () => {
   expect(list.size()).toBe(3);
 
   list.removeAt(0);
+  expect(list.size()).toBe(2);
   expect(list.head.data).toBe(2);
+  expect(list.tail.data).toBe(4);
 
   expect(() => {
     list.removeAt(-4);
